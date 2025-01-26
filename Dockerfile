@@ -1,14 +1,15 @@
-FROM openjdk:17-jdk-alpine
+FROM maven:3.9.5-eclipse-temurin-17 AS build
+
 WORKDIR /app
 
 COPY . .
 
-# Cria o .jar da aplicacao
 RUN mvn clean install -DskipTests
 
-WORKDIR /app
+FROM eclipse-temurin:17-jre
 
-COPY target/*.jar /app/app.jar
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
 
-CMD ["java", "-jar", "/app/app.jar"]
+CMD ["java", "-jar", "app.jar"]
