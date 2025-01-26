@@ -1,11 +1,12 @@
 FROM openjdk:17-jdk-alpine
 WORKDIR /app
 
-#COPY pom.xml .
-#COPY src ./src
+COPY . .
 
-# Executar o build da aplicação (mvn clean install)
-#RUN mvn clean install
+# Cria o .jar da aplicacao
+RUN mvn clean install -DskipTests
+
+WORKDIR /app
 
 COPY target/*.jar /app/app.jar
 EXPOSE 8080
