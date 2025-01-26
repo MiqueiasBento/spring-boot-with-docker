@@ -19,4 +19,4 @@ jobs:
 
       - name: Build and validate container
         run: |
-          docker-compose -f docker-compose.yaml up --build --exit-code-from mb-api
+          docker-compose -f docker-compose.yaml up --build --exit-code-from app
